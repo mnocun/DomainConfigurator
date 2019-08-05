@@ -35,7 +35,7 @@ query_yes_no(){
   		'n') TEMP_FUNC_TN=false;;
   		'N') TEMP_FUNC_TN=false;;
   		'') TEMP_FUNC_TN=false;;
-  		*) echo -e "${GREY}\e[1mBAD INPUT - DOMYSLNA WARTOSC = NIE"; TEMP_FUNC_TN=false
+  		*) echo -e "${GREY}\e[1mBAD INPUT - DOMYSLNA WARTOSC = NIE\e[0m"; TEMP_FUNC_TN=false
 	esac
 }
 while_read_empty(){
@@ -122,7 +122,7 @@ else
 fi
 
 echo -e "${GREY}\e[1mPomyslnie skonfigurowano domene na serwerze ;) "
-echo -e "${GREY} ----------------------------------------------"
+echo -e "${GREY} ----------------------------------------------\e[0m"
 
 query_yes_no "Podpiac ssl ?"
 ISITE_SSL=$TEMP_FUNC_TN
