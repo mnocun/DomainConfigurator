@@ -5,6 +5,6 @@
 <li>Nazwa rejestrowanej domeny</li>
 <li>Opcjonalnie: Nazwa folderu</li>
 
-Skrypt przeprowadzi Cię przez proces rejestowania domeny
+<h5>Skrypt przeprowadzi Cię przez proces rejestowania domeny</h5>
 
 <h3>Żeby domena mogła zadziałać musisz mieć skonfigurowane adresy DNS u swojego dostawcy</h3>
