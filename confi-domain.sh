@@ -11,13 +11,16 @@ echo -e "${GREY} ----------------------------------------------"
 
 
 ISITE_DIRECTORY_PATH='/var/www'
+ISITE_EN=''
 
 if [ -d /etc/httpd ];then
 	IENGINE_IF_HTTPD=true
 	ISITE_CONFIG_PATH='/etc/httpd'
+	ISITE_EN='httpd'
 else
 	IENGINE_IF_HTTPD=false
 	ISITE_CONFIG_PATH='/etc/apache2'
+	ISITE_EN='apache2'
 fi
 
 
@@ -80,7 +83,7 @@ else
 fi
 
 if $ENGINE_REWRITE_CONF; then
-	echo -e "<VirtualHost *:80>\nServerAdmin webmaster@$ISITE_DIRECTORY_NAME\nDocumentRoot /var/www/$ISITE_DIRECTORY_NAME/\nServerName $ISITE_NAME\nServerAlias www.$ISITE_NAME\nErrorLog /var/log/httpd/$ISITE_NAME-error_log\nCustomLog /var/log/httpd/$ISITE_NAME-access_log combined\n<Directory /var/www/$ISITE_NAME/>\nDirectoryIndex index.php\nOptions FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n</VirtualHost>\n\n<VirtualHost *:443>\nServerAdmin webmaster@$ISITE_DIRECTORY_NAME\nServerName $ISITE_NAME\nServerAlias www.$ISITE_NAME\nDocumentRoot \"/var/www//$ISITE_DIRECTORY_NAME\"\nErrorLog /var/log/httpd/$ISITE_NAME-SSL-error_log\nCustomLog /var/log/httpd/$ISITE_NAME-SSL-access_log combined\n<Directory \"/var/www/$ISITE_DIRECTORY_NAME/\">\nDirectoryIndex index.php\nOptions FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n</VirtualHost>\n" > $ISITE_CONFIG_PATH/sites-available/$ISITE_NAME.conf 
+	echo -e "<VirtualHost *:80>\nServerAdmin webmaster@$ISITE_DIRECTORY_NAME\nDocumentRoot /var/www/$ISITE_DIRECTORY_NAME/\nServerName $ISITE_NAME\nErrorLog /var/log/$ISITE_EN/$ISITE_NAME-error_log\nCustomLog /var/log/$ISITE_EN/$ISITE_NAME-access_log combined\n<Directory /var/www/$ISITE_NAME/>\nDirectoryIndex index.php\nOptions FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n</VirtualHost>\n\n<VirtualHost *:443>\nServerAdmin webmaster@$ISITE_DIRECTORY_NAME\nServerName $ISITE_NAME\nDocumentRoot \"/var/www//$ISITE_DIRECTORY_NAME\"\nErrorLog /var/log/$ISITE_EN/$ISITE_NAME-SSL-error_log\nCustomLog /var/log/$ISITE_EN/$ISITE_NAME-SSL-access_log combined\n<Directory \"/var/www/$ISITE_DIRECTORY_NAME/\">\nDirectoryIndex index.php\nOptions FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n</VirtualHost>\n" > $ISITE_CONFIG_PATH/sites-available/$ISITE_NAME.conf 
 	echo -e "${GREY}\e[1mZmodyfikowano plik -> $ISITE_NAME.conf"
 	echo -e "${GREY} ----------------------------------------------"
 fi
@@ -104,7 +107,7 @@ fi
 if $ENGINE_CREATE_INDEX; then
 	query_yes_no "Utworzyc przykladowy plik index.php ?"
 	if $TEMP_FUNC_TN; then
-		echo -e "<!DOCTYPE HTML>\n<html lang=\"pl\">\n<head>\n<title>$ISITE_NAME</title>\n<style>*{margin:0;}body{width: 100vw;height: 100vh;}.conteiner{width: 100%;height: 100%;display:flex;justify-content:center;align-items:center;}</style></head>\n<body>\n<div class=\"conteinet\"><div class=\"content\">-- $ISITE_NAME --</div></div></body>\n</html>" > $ISITE_DIRECTORY_PATH/$ISITE_DIRECTORY_NAME/index.php
+		echo -e "<!DOCTYPE HTML>\n<html lang=\"pl\">\n<head>\n<title>$ISITE_NAME</title>\n<style>*{margin:0;}body{width: 100vw;height: 100vh;}.conteiner{width: 100%;height: 100%;display:flex;justify-content:center;align-items:center;}</style></head>\n<body>\n<div class=\"conteiner\"><div class=\"content\">-- $ISITE_NAME --</div></div></body>\n</html>" > $ISITE_DIRECTORY_PATH/$ISITE_DIRECTORY_NAME/index.php
 	fi
 	echo -e "${GREY} ----------------------------------------------"
 fi
@@ -113,9 +116,9 @@ fi
 if $IENGINE_IF_HTTPD; then
 	ln -s $ISITE_CONFIG_PATH/sites-available/$ISITE_NAME.conf $ISITE_CONFIG_PATH/sites-enabled/$ISITE_NAME.conf
 	systemctl restart httpd
-#else
-	#a2ensite $ISITE_NAME
-	#systemctl restart apache2
+else
+	a2ensite $ISITE_NAME
+	systemctl reload apache2
 fi
 
 echo -e "${GREY}\e[1mPomyslnie skonfigurowano domene na serwerze ;) "
