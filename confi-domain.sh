@@ -83,7 +83,7 @@ else
 fi
 
 if $ENGINE_REWRITE_CONF; then
-	echo -e "<VirtualHost *:80>\nServerAdmin webmaster@$ISITE_DIRECTORY_NAME\nDocumentRoot /var/www/$ISITE_DIRECTORY_NAME/\nServerName $ISITE_NAME\nErrorLog /var/log/$ISITE_EN/$ISITE_NAME-error_log\nCustomLog /var/log/$ISITE_EN/$ISITE_NAME-access_log combined\n<Directory /var/www/$ISITE_NAME/>\nDirectoryIndex index.php\nOptions FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n</VirtualHost>\n\n<VirtualHost *:443>\nServerAdmin webmaster@$ISITE_DIRECTORY_NAME\nServerName $ISITE_NAME\nDocumentRoot \"/var/www//$ISITE_DIRECTORY_NAME\"\nErrorLog /var/log/$ISITE_EN/$ISITE_NAME-SSL-error_log\nCustomLog /var/log/$ISITE_EN/$ISITE_NAME-SSL-access_log combined\n<Directory \"/var/www/$ISITE_DIRECTORY_NAME/\">\nDirectoryIndex index.php\nOptions FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n</VirtualHost>\n" > $ISITE_CONFIG_PATH/sites-available/$ISITE_NAME.conf 
+	echo -e "<VirtualHost *:80>\nServerAdmin webmaster@$ISITE_DIRECTORY_NAME\nDocumentRoot /var/www/$ISITE_DIRECTORY_NAME/\nServerName $ISITE_NAME\nErrorLog /var/log/$ISITE_EN/$ISITE_NAME-error_log\nCustomLog /var/log/$ISITE_EN/$ISITE_NAME-access_log combined\n<Directory /var/www/$ISITE_NAME/>\nDirectoryIndex index.php\nOptions FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n</VirtualHost>\n\n<VirtualHost *:443>\nServerAdmin webmaster@$ISITE_DIRECTORY_NAME\nServerName $ISITE_NAME\nDocumentRoot \"/var/www/$ISITE_DIRECTORY_NAME\"\nErrorLog /var/log/$ISITE_EN/$ISITE_NAME-SSL-error_log\nCustomLog /var/log/$ISITE_EN/$ISITE_NAME-SSL-access_log combined\n<Directory \"/var/www/$ISITE_DIRECTORY_NAME/\">\nDirectoryIndex index.php\nOptions FollowSymLinks\nAllowOverride All\nRequire all granted\n</Directory>\n</VirtualHost>\n" > $ISITE_CONFIG_PATH/sites-available/$ISITE_NAME.conf 
 	echo -e "${GREY}\e[1mZmodyfikowano plik -> $ISITE_NAME.conf"
 	echo -e "${GREY} ----------------------------------------------"
 fi
@@ -107,7 +107,7 @@ fi
 if $ENGINE_CREATE_INDEX; then
 	query_yes_no "Utworzyc przykladowy plik index.php ?"
 	if $TEMP_FUNC_TN; then
-		echo -e "<!DOCTYPE HTML>\n<html lang=\"pl\">\n<head>\n<title>$ISITE_NAME</title>\n<style>*{margin:0;}body{width: 100vw;height: 100vh;}.conteiner{width: 100%;height: 100%;display:flex;justify-content:center;align-items:center;}</style></head>\n<body>\n<div class=\"conteiner\"><div class=\"content\">-- $ISITE_NAME --</div></div></body>\n</html>" > $ISITE_DIRECTORY_PATH/$ISITE_DIRECTORY_NAME/index.php
+		echo -e "<!DOCTYPE HTML>\n<html lang=\"pl\">\n<head>\n<title>$ISITE_NAME</title>\n<link href=\"https://fonts.googleapis.com/css?family=Raleway&display=swap\" rel=\"stylesheet\">\n<style>body{margin:0}h1{width:100vw;height:100vh;color:#2c2c2c;text-transform:uppercase;background-color:#d5d5d5;letter-spacing:0.05em;text-shadow:4px 4px 0px #d5d5d5,7px 7px 0px rgba(0, 0, 0, 0.2);font-family:\"Raleway\",sans-serif;font-size:92px;padding:80px 50px;text-align:center;text-transform:uppercase;text-rendering:optimizeLegibility;}</style>\n</head>\n<body><h1>$ISITE_NAME</h1></body></html>" > $ISITE_DIRECTORY_PATH/$ISITE_DIRECTORY_NAME/index.php
 	fi
 	echo -e "${GREY} ----------------------------------------------"
 fi
@@ -123,10 +123,3 @@ fi
 
 echo -e "${GREY}\e[1mPomyslnie skonfigurowano domene na serwerze ;) "
 echo -e "${GREY} ----------------------------------------------\e[0m"
-
-query_yes_no "Podpiac ssl ?"
-ISITE_SSL=$TEMP_FUNC_TN
-
-if $ISITE_SSL; then
-	echo "SSL DISABLE"
-fi
