@@ -1,10 +1,10 @@
-<h3>Obsługiwane serwery:</h3>
+<h3>Supported servers:</h3>
 <li>apache2</li>
 
-<h4>Do konfiguracji serwera będą Ci potrzebne informacje :</h4>
-<li>Nazwa rejestrowanej domeny</li>
-<li>Opcjonalnie: Nazwa folderu</li>
+<h4>You will need some information to configure the server:</h4>
+<li>Name of domain being registered</li>
+<li>Optional: Folder name</li>
 
-<h5>Skrypt przeprowadzi Cię przez proces rejestowania domeny</h5>
+<h5>Script will guide you through the domain registration process</h5>
 
-<h3>Żeby domena mogła zadziałać musisz mieć skonfigurowane adresy DNS u swojego dostawcy</h3>
+<h3>For the domain to work, you must have DNS addresses configured at your provider</h3>
